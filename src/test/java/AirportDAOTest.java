@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +15,12 @@ import static org.hamcrest.Matchers.is;
  * Created by employee on 7/28/16.
  */
 public class AirportDAOTest extends DatabaseInitializer{
-    private List<Airport> allAllAirports;
+    private List<Airport> allAirports;
 
     @Before
     public void setUp() throws Exception {
         prepareDatabase();
-        allAllAirports  = asList(
+        allAirports = asList(
                 new Airport("Tripoli International Airport", cityDAO.getCityById(0)),
                 new Airport("Battle of Tripoli Airport", cityDAO.getCityById(0)),
                 new Airport("Palma Mallorca Airport", cityDAO.getCityById(1)),
@@ -45,14 +44,14 @@ public class AirportDAOTest extends DatabaseInitializer{
 
     @Test
     public void getAll() throws Exception {
-        assertThat(airportDAO.getAll(), is(allAllAirports));
+        assertThat(airportDAO.getAll(), is(allAirports));
     }
 
     @Test
     public void createAndGetAll() throws Exception {
         City city = cityDAO.getCityById(6);
         List<Airport> expectedAirports = new ArrayList<>();
-        expectedAirports.addAll(allAllAirports);
+        expectedAirports.addAll(allAirports);
         expectedAirports.add(new Airport("Edinburgh Airport", city));
 
         airportDAO.create("Edinburgh Airport", city);
@@ -62,7 +61,7 @@ public class AirportDAOTest extends DatabaseInitializer{
 
     @Test
     public void getAirportById() throws Exception {
-        assertThat(cityDAO.getCityById(1), is(new Airport("Battle of Tripoli Airport", cityDAO.getCityById(0))));
+        assertThat(airportDAO.getAirportById(1), is(new Airport("Battle of Tripoli Airport", cityDAO.getCityById(0))));
     }
 
     @Test

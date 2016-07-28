@@ -23,6 +23,10 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <bean id="flightDAO" class="com.in6k.aviaTicketDesk.dao.FlightDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
         <property name="url" value="jdbc:hsqldb:mem:shop"/>
