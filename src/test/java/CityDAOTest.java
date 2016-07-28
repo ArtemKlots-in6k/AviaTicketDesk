@@ -25,7 +25,8 @@ public class CityDAOTest extends DatabaseInitializer {
                 new City("Andorra"),
                 new City("Bremen"),
                 new City("Motala"),
-                new City("Elk")
+                new City("Elk"),
+                new City("Edinburgh")
         );
     }
 
@@ -61,8 +62,7 @@ public class CityDAOTest extends DatabaseInitializer {
     @Test
     public void createAndGetById() throws Exception {
         cityDAO.create("Aktau");
-        System.out.println(cityDAO.getAll());
-        assertThat(cityDAO.getCityById(6), is(new City("Aktau")));
+        assertThat(cityDAO.getCityById(7), is(new City("Aktau")));
     }
 
 }
