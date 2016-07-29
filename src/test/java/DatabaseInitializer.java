@@ -46,7 +46,7 @@ public class DatabaseInitializer {
                 "destination_airport_id INT NOT NULL, " +
                 "aircraft_capacity INT NOT NULL, " +
                 "free_seats INT NOT NULL, " +
-                "dateTime DATETIME )");
+                "departure_date_time DATETIME )");
 
         statement.executeUpdate("ALTER TABLE flights " +
                 "ADD FOREIGN KEY(departure_airport_id) " +
@@ -93,15 +93,30 @@ public class DatabaseInitializer {
     }
 
     private void prepareFlights() throws SQLException {
+        addFlight(1, 5, 120, 120, "2016-07-25 16:20:00");
+        addFlight(3, 5, 300, 300, "2016-08-10 17:20:00");
+        addFlight(4, 1, 200, 200, "2016-07-15 13:05:00");
+        addFlight(2, 3, 100, 100, "2016-07-13 14:05:00");
+    }
+
+    private void addFlight(int departureAirportId,
+                           int destinationAirportId,
+                           int aircraftCapacity,
+                           int freeSeats,
+                           String departureDateTime) throws SQLException {
         statement.executeUpdate("" +
                 "INSERT INTO flights (" +
                 "departure_airport_id, " +
                 "destination_airport_id, " +
                 "aircraft_capacity, " +
                 "free_seats, " +
-                "dateTime ) " +
-                "VALUES (1, 5, 120, 120,  '2016-07-25 16:20:00');");
-
+                "departure_date_time ) " +
+                "VALUES (" +
+                departureAirportId + "," +
+                destinationAirportId + "," +
+                aircraftCapacity + "," +
+                freeSeats + "," +
+                "'" + departureDateTime + "');");
     }
 
     void shutDownDatabase() throws SQLException {

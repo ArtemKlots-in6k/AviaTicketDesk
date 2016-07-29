@@ -1,6 +1,7 @@
 package com.in6k.aviaTicketDesk.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -69,7 +70,7 @@ public class Flight {
         this.destinationAirport = destinationAirport;
     }
 
-    @Column
+    @Column(name = "aircraft_capacity")
     public int getAircraftCapacity() {
         return aircraftCapacity;
     }
@@ -78,7 +79,7 @@ public class Flight {
         this.aircraftCapacity = aircraftCapacity;
     }
 
-    @Column
+    @Column(name = "free_seats")
     public int getFreeSeats() {
         return freeSeats;
     }
@@ -87,12 +88,51 @@ public class Flight {
         this.freeSeats = freeSeats;
     }
 
-    @Column
-    public LocalDateTime getDepartureDateTime() {
-        return departureDateTime;
+    @Column(name = "departure_date_time")
+    public Timestamp getDepartureDateTime() {
+        return Timestamp.valueOf(departureDateTime);
     }
 
-    public void setDepartureDateTime(LocalDateTime departureDateTime) {
-        this.departureDateTime = departureDateTime;
+    public void setDepartureDateTime(Timestamp departureDateTime) {
+        this.departureDateTime = departureDateTime.toLocalDateTime();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Flight flight = (Flight) o;
+
+        if (aircraftCapacity != flight.aircraftCapacity) return false;
+        if (freeSeats != flight.freeSeats) return false;
+        if (departureAirport != null ? !departureAirport.equals(flight.departureAirport) : flight.departureAirport != null)
+            return false;
+        if (destinationAirport != null ? !destinationAirport.equals(flight.destinationAirport) : flight.destinationAirport != null)
+            return false;
+        return departureDateTime != null ? departureDateTime.equals(flight.departureDateTime) : flight.departureDateTime == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = departureAirport != null ? departureAirport.hashCode() : 0;
+        result = 31 * result + (destinationAirport != null ? destinationAirport.hashCode() : 0);
+        result = 31 * result + aircraftCapacity;
+        result = 31 * result + freeSeats;
+        result = 31 * result + (departureDateTime != null ? departureDateTime.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "id=" + id +
+                ", departureAirport=" + departureAirport +
+                ", destinationAirport=" + destinationAirport +
+                ", aircraftCapacity=" + aircraftCapacity +
+                ", freeSeats=" + freeSeats +
+                ", departureDateTime=" + departureDateTime +
+                '}';
     }
 }

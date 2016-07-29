@@ -3,6 +3,7 @@ package com.in6k.aviaTicketDesk.dao;
 import com.in6k.aviaTicketDesk.entity.Airport;
 import com.in6k.aviaTicketDesk.entity.Flight;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -55,5 +56,14 @@ public class FlightDAO {
         Criteria flightCriteria = getSession().createCriteria(Flight.class);
         flightCriteria.add(Restrictions.eq("id", id));
         return (Flight) flightCriteria.uniqueResult();
+    }
+
+    public int getFreeSeatsByFlight(Flight flight) {
+        Query query = sessionFactory.getCurrentSession().createQuery("" +
+                "SELECT flights.freeSeats " +
+                "FROM Flight flights " +
+                "WHERE flights.id = :flightId "
+        ).setParameter("flightId", flight.getId());
+        return (int) query.list().get(0);
     }
 }
