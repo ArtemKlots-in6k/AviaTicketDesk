@@ -1,6 +1,7 @@
 import com.in6k.aviaTicketDesk.dao.AirportDAO;
 import com.in6k.aviaTicketDesk.dao.CityDAO;
 import com.in6k.aviaTicketDesk.dao.FlightDAO;
+import com.in6k.aviaTicketDesk.dao.UserDAO;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.DriverManager;
@@ -15,6 +16,7 @@ public class DatabaseInitializer {
     CityDAO cityDAO;
     AirportDAO airportDAO;
     FlightDAO flightDAO;
+    UserDAO userDAO;
 
 
     void prepareDatabase() throws Exception {
@@ -23,6 +25,7 @@ public class DatabaseInitializer {
         prepareCities();
         prepareAirports();
         prepareFlights();
+        prepareUsers();
         beansSetUp();
     }
 
@@ -55,6 +58,9 @@ public class DatabaseInitializer {
         statement.executeUpdate("ALTER TABLE flights " +
                 "ADD FOREIGN KEY(destination_airport_id) " +
                 "REFERENCES airports(id)");
+        statement.executeUpdate("CREATE TABLE users (" +
+                "id INTEGER IDENTITY PRIMARY KEY, " +
+                "name VARCHAR(50) );");
     }
 
     private void beansSetUp() {
@@ -62,6 +68,7 @@ public class DatabaseInitializer {
         cityDAO = (CityDAO) applicationContext.getBean("cityDAO");
         airportDAO = (AirportDAO) applicationContext.getBean("airportDAO");
         flightDAO = (FlightDAO) applicationContext.getBean("flightDAO");
+        userDAO = (UserDAO) applicationContext.getBean("userDAO");
     }
 
     private void prepareCities() throws SQLException {
@@ -119,9 +126,24 @@ public class DatabaseInitializer {
                 "'" + departureDateTime + "');");
     }
 
+    private void prepareUsers() throws SQLException {
+        addUser("John");
+        addUser("Bob");
+        addUser("Andre");
+        addUser("Jenifer");
+        addUser("Marta");
+        addUser("Lola");
+        addUser("Fill");
+    }
+
+    private void addUser(String name) throws SQLException {
+        statement.executeUpdate("INSERT INTO users (name) VALUES ('" + name + "');");
+    }
+
     void shutDownDatabase() throws SQLException {
         statement.executeUpdate("DROP TABLE flights");
         statement.executeUpdate("DROP TABLE airports");
         statement.executeUpdate("DROP TABLE cities");
+        statement.executeUpdate("DROP TABLE users");
     }
 }
