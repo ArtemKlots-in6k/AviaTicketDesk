@@ -1,7 +1,6 @@
 package com.in6k.aviaTicketDesk.dao;
 
-import com.in6k.aviaTicketDesk.entity.City;
-import com.in6k.aviaTicketDesk.entity.User;
+import com.in6k.aviaTicketDesk.entity.Passenger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,7 +14,7 @@ import java.util.List;
  * Created by employee on 7/28/16.
  */
 @Transactional
-public class UserDAO {
+public class PassengerDAO {
 
     private SessionFactory sessionFactory;
 
@@ -27,11 +26,11 @@ public class UserDAO {
         return sessionFactory;
     }
 
-    public User create(String name) throws Exception {
-        User user = new User(name);
-        getSession().save(user);
+    public Passenger create(String name) throws Exception {
+        Passenger passenger = new Passenger(name);
+        getSession().save(passenger);
         getSession().flush();
-        return user;
+        return passenger;
     }
 
     private Session getSession() {
@@ -39,12 +38,12 @@ public class UserDAO {
     }
 
     public List getAll() {
-        return getSession().createCriteria(User.class).list();
+        return getSession().createCriteria(Passenger.class).list();
     }
 
-    public User getUserById(int id) throws SQLException {
-        Criteria userCriteria = getSession().createCriteria(User.class);
-        userCriteria.add(Restrictions.eq("id", id));
-        return (User) userCriteria.uniqueResult();
+    public Passenger getUserById(int id) throws SQLException {
+        Criteria passengerCriteria = getSession().createCriteria(Passenger.class);
+        passengerCriteria.add(Restrictions.eq("id", id));
+        return (Passenger) passengerCriteria.uniqueResult();
     }
 }

@@ -6,19 +6,19 @@ import javax.persistence.*;
  * Created by employee on 7/29/16.
  */
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "passengers")
+public class Passenger {
     private Integer id;
     private String name;
 
-    public User() {
+    public Passenger() {
     }
 
-    public User(String name) {
+    public Passenger(String name) {
         this.name = name;
     }
 
-    public User(int id, String name) {
+    public Passenger(int id, String name) {
         this(name);
         this.id = id;
     }
@@ -44,7 +44,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Passenger{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
@@ -55,8 +55,8 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        Passenger passenger = (Passenger) o;
 
-        return name != null ? name.equals(user.name) : user.name == null;
+        return name != null ? name.equals(passenger.name) : passenger.name == null;
     }
 }

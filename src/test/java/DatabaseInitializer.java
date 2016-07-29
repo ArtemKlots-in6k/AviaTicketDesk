@@ -1,7 +1,4 @@
-import com.in6k.aviaTicketDesk.dao.AirportDAO;
-import com.in6k.aviaTicketDesk.dao.CityDAO;
-import com.in6k.aviaTicketDesk.dao.FlightDAO;
-import com.in6k.aviaTicketDesk.dao.UserDAO;
+import com.in6k.aviaTicketDesk.dao.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.DriverManager;
@@ -16,7 +13,8 @@ public class DatabaseInitializer {
     CityDAO cityDAO;
     AirportDAO airportDAO;
     FlightDAO flightDAO;
-    UserDAO userDAO;
+    PassengerDAO passengerDAO;
+    TicketDAO ticketDAO;
 
 
     void prepareDatabase() throws Exception {
@@ -25,7 +23,8 @@ public class DatabaseInitializer {
         prepareCities();
         prepareAirports();
         prepareFlights();
-        prepareUsers();
+        preparePassengers();
+        prepareTickets();
         beansSetUp();
     }
 
@@ -58,9 +57,23 @@ public class DatabaseInitializer {
         statement.executeUpdate("ALTER TABLE flights " +
                 "ADD FOREIGN KEY(destination_airport_id) " +
                 "REFERENCES airports(id)");
-        statement.executeUpdate("CREATE TABLE users (" +
+
+        statement.executeUpdate("CREATE TABLE passengers (" +
                 "id INTEGER IDENTITY PRIMARY KEY, " +
                 "name VARCHAR(50) );");
+
+        statement.executeUpdate("CREATE TABLE tickets (" +
+                "id INTEGER IDENTITY PRIMARY KEY, " +
+                "flight_id INT NOT NULL, " +
+                "passenger_id INT NOT NULL )");
+
+        statement.executeUpdate("ALTER TABLE tickets " +
+                "ADD FOREIGN KEY(flight_id) " +
+                "REFERENCES flights(id)");
+
+        statement.executeUpdate("ALTER TABLE tickets " +
+                "ADD FOREIGN KEY(passenger_id) " +
+                "REFERENCES passengers(id)");
     }
 
     private void beansSetUp() {
@@ -68,7 +81,8 @@ public class DatabaseInitializer {
         cityDAO = (CityDAO) applicationContext.getBean("cityDAO");
         airportDAO = (AirportDAO) applicationContext.getBean("airportDAO");
         flightDAO = (FlightDAO) applicationContext.getBean("flightDAO");
-        userDAO = (UserDAO) applicationContext.getBean("userDAO");
+        passengerDAO = (PassengerDAO) applicationContext.getBean("passengerDAO");
+        ticketDAO = (TicketDAO) applicationContext.getBean("ticketDAO");
     }
 
     private void prepareCities() throws SQLException {
@@ -126,24 +140,36 @@ public class DatabaseInitializer {
                 "'" + departureDateTime + "');");
     }
 
-    private void prepareUsers() throws SQLException {
-        addUser("John");
-        addUser("Bob");
-        addUser("Andre");
-        addUser("Jenifer");
-        addUser("Marta");
-        addUser("Lola");
-        addUser("Fill");
+    private void preparePassengers() throws SQLException {
+        addPassenger("John");
+        addPassenger("Bob");
+        addPassenger("Andre");
+        addPassenger("Jenifer");
+        addPassenger("Marta");
+        addPassenger("Lola");
+        addPassenger("Fill");
     }
 
-    private void addUser(String name) throws SQLException {
-        statement.executeUpdate("INSERT INTO users (name) VALUES ('" + name + "');");
+    private void addPassenger(String name) throws SQLException {
+        statement.executeUpdate("INSERT INTO passengers (name) VALUES ('" + name + "');");
+    }
+
+    private void prepareTickets() throws SQLException {
+        addTicket(0, 0);
+        addTicket(2, 3);
+        addTicket(3, 1);
+        addTicket(3, 2);
+    }
+
+    private void addTicket(int flightId, int passengerId) throws SQLException {
+        statement.executeUpdate("INSERT INTO tickets (flight_id, passenger_id) VALUES (" + flightId + "," + passengerId + ");");
     }
 
     void shutDownDatabase() throws SQLException {
+        statement.executeUpdate("DROP TABLE tickets");
         statement.executeUpdate("DROP TABLE flights");
         statement.executeUpdate("DROP TABLE airports");
         statement.executeUpdate("DROP TABLE cities");
-        statement.executeUpdate("DROP TABLE users");
+        statement.executeUpdate("DROP TABLE passengers");
     }
 }

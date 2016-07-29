@@ -27,7 +27,11 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="userDAO" class="com.in6k.aviaTicketDesk.dao.UserDAO">
+    <bean id="passengerDAO" class="com.in6k.aviaTicketDesk.dao.PassengerDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="ticketDAO" class="com.in6k.aviaTicketDesk.dao.TicketDAO">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
