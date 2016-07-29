@@ -81,4 +81,29 @@ public class FlightDAOTest extends DatabaseInitializer {
     public void getFreeSeatsForAnotherFlight() throws Exception {
         assertThat(flightDAO.getFreeSeatsByFlight(flightDAO.getFlightById(1)), is(300));
     }
+
+    @Test
+    public void reserveOneHundredSeat() throws Exception {
+        Flight flight = flightDAO.getFlightById(0);
+
+        flightDAO.reserveSeats(flight, 100);
+
+        assertThat(flightDAO.getFlightById(0).getFreeSeats(), is(20));
+    }
+
+    @Test
+    public void reserveTwentySeat() throws Exception {
+        Flight flight = flightDAO.getFlightById(0);
+
+        flightDAO.reserveSeats(flight, 20);
+
+        assertThat(flightDAO.getFlightById(0).getFreeSeats(), is(100));
+    }
+
+    @Test(expected = Exception.class)
+    public void reserveMoreThanMaximumSeats() throws Exception {
+        Flight flight = flightDAO.getFlightById(0);
+
+        flightDAO.reserveSeats(flight, 999999);
+    }
 }

@@ -66,4 +66,17 @@ public class FlightDAO {
         ).setParameter("flightId", flight.getId());
         return (int) query.list().get(0);
     }
+
+    public void reserveSeats(Flight flight, int numberOfSeats) throws Exception {
+        if (flight.getFreeSeats() - numberOfSeats < 0)
+            throw new Exception("Not enough seats! ");
+
+        Query query = getSession().createQuery("" +
+                "UPDATE Flight SET freeSeats = :freeSeats " +
+                "WHERE id = :flightId "
+        )
+                .setParameter("freeSeats", flight.getFreeSeats() - numberOfSeats)
+                .setParameter("flightId", flight.getId());
+        query.executeUpdate();
+    }
 }
