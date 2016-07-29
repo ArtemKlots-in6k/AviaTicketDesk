@@ -7,9 +7,11 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @Transactional
 public class TicketDAO {
+
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -34,7 +37,7 @@ public class TicketDAO {
         return ticket;
     }
 
-    public List getAll() {
+    public List<Ticket> getAll() {
         return getSession().createCriteria(Ticket.class).list();
     }
 

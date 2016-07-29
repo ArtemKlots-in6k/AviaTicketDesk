@@ -3,6 +3,7 @@ import com.in6k.aviaTicketDesk.entity.Ticket;
 import com.in6k.aviaTicketDesk.entity.Passenger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;

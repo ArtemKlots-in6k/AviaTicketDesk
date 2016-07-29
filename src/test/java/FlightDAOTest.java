@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -105,5 +106,59 @@ public class FlightDAOTest extends DatabaseInitializer {
         Flight flight = flightDAO.getFlightById(0);
 
         flightDAO.reserveSeats(flight, 999999);
+    }
+
+    @Test
+    public void selectNextFlightToThisCityForFewPeople() throws Exception {
+        Flight result = flightDAO.selectNextFlightToThisCityForFewPeople(
+                airportDAO.getAirportById(1),
+                airportDAO.getAirportById(5),
+                LocalDateTime.of(2016, 7, 23, 20, 0),
+                5);
+
+        assertThat(result, is(new Flight(
+                airportDAO.getAirportById(1),
+                airportDAO.getAirportById(5),
+                120,
+                LocalDateTime.of(2016, 7, 25, 16, 20))));
+    }
+
+    @Test(expected = Exception.class)
+    public void selectNextFlightToThisCityForLotsOfPeople() throws Exception {
+        flightDAO.selectNextFlightToThisCityForFewPeople(
+                airportDAO.getAirportById(1),
+                airportDAO.getAirportById(5),
+                LocalDateTime.of(2016, 7, 23, 20, 0),
+                99999);
+    }
+
+    @Test
+    public void selectAnotherNextFlightToThisCityForFewPeople() throws Exception {
+        prepareFlights();
+        Flight result = flightDAO.selectNextFlightToThisCityForFewPeople(
+                airportDAO.getAirportById(1),
+                airportDAO.getAirportById(2),
+                LocalDateTime.of(2016, 7, 23, 20, 0),
+                5);
+
+        assertThat(result, is(new Flight(
+                airportDAO.getAirportById(1),
+                airportDAO.getAirportById(2),
+                120,
+                LocalDateTime.of(2016, 7, 25, 16, 20))));
+    }
+
+    private void prepareFlights() throws Exception {
+        flightDAO.create(
+                airportDAO.getAirportById(1),
+                airportDAO.getAirportById(2),
+                120,
+                LocalDateTime.of(2016, 7, 25, 16, 30));
+
+        flightDAO.create(
+                airportDAO.getAirportById(1),
+                airportDAO.getAirportById(2),
+                120,
+                LocalDateTime.of(2016, 7, 25, 16, 20));
     }
 }

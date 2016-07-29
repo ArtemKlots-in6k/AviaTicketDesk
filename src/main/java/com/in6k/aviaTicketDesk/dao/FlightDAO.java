@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -78,5 +79,23 @@ public class FlightDAO {
                 .setParameter("freeSeats", flight.getFreeSeats() - numberOfSeats)
                 .setParameter("flightId", flight.getId());
         query.executeUpdate();
+    }
+
+    public Flight selectNextFlightToThisCityForFewPeople(Airport departureAirport, Airport destinationAirport, LocalDateTime today, int numberOfPersons) {
+        Query query = sessionFactory.getCurrentSession().createQuery("" +
+                "FROM Flight flight " +
+                "WHERE departureAirport = :departureAirport " +
+                "AND destinationAirport = :destinationAirport " +
+                "AND freeSeats >= :numberOfPersons " +
+                "AND departureDateTime > :today " +
+                "ORDER BY departureDateTime ASC "
+        )
+                .setParameter("destinationAirport", destinationAirport)
+                .setParameter("departureAirport", departureAirport)
+                .setParameter("numberOfPersons", numberOfPersons)
+                .setParameter("today", Timestamp.valueOf(today))
+                .setMaxResults(1);
+
+        return (Flight) query.list().get(0);
     }
 }

@@ -1,4 +1,5 @@
 import com.in6k.aviaTicketDesk.dao.*;
+import com.in6k.aviaTicketDesk.service.AviaTicketDesk;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.DriverManager;
@@ -15,6 +16,7 @@ public class DatabaseInitializer {
     FlightDAO flightDAO;
     PassengerDAO passengerDAO;
     TicketDAO ticketDAO;
+    AviaTicketDesk aviaTicketDesk;
 
 
     void prepareDatabase() throws Exception {
@@ -25,7 +27,7 @@ public class DatabaseInitializer {
         prepareFlights();
         preparePassengers();
         prepareTickets();
-        beansSetUp();
+        setUpBeans();
     }
 
     private void prepareTables() throws SQLException {
@@ -76,13 +78,14 @@ public class DatabaseInitializer {
                 "REFERENCES passengers(id)");
     }
 
-    private void beansSetUp() {
+    private void setUpBeans() {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[]{"config.xml"});
-        cityDAO = (CityDAO) applicationContext.getBean("cityDAO");
-        airportDAO = (AirportDAO) applicationContext.getBean("airportDAO");
-        flightDAO = (FlightDAO) applicationContext.getBean("flightDAO");
-        passengerDAO = (PassengerDAO) applicationContext.getBean("passengerDAO");
-        ticketDAO = (TicketDAO) applicationContext.getBean("ticketDAO");
+        cityDAO = applicationContext.getBean(CityDAO.class);
+        airportDAO = applicationContext.getBean(AirportDAO.class);
+        flightDAO = applicationContext.getBean(FlightDAO.class);
+        passengerDAO = applicationContext.getBean(PassengerDAO.class);
+        ticketDAO = applicationContext.getBean(TicketDAO.class);
+        aviaTicketDesk = applicationContext.getBean(AviaTicketDesk.class);
     }
 
     private void prepareCities() throws SQLException {

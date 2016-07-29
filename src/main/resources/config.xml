@@ -35,6 +35,11 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <bean id="aviaTicketDesk" class="com.in6k.aviaTicketDesk.service.AviaTicketDesk">
+        <property name="ticketDAO" ref="ticketDAO"/>
+        <property name="flightDAO" ref="flightDAO"/>
+    </bean>
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
         <property name="url" value="jdbc:hsqldb:mem:shop"/>

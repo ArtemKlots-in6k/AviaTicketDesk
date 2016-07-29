@@ -19,7 +19,7 @@
     </build>
 
     <groupId>groupId</groupId>
-    <artifactId>AviaTicketDesk</artifactId>
+    <artifactId>AviaTicketDeskTest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
