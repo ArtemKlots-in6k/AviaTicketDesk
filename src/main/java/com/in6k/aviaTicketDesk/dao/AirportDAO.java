@@ -30,7 +30,7 @@ public class AirportDAO {
         return sessionFactory.getCurrentSession();
     }
 
-    public Airport create(String title, City city) throws Exception {
+    public Airport create(String title, City city) {
         Airport airport = new Airport(title, city);
         getSession().save(airport);
         getSession().flush();

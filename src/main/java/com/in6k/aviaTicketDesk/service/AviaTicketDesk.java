@@ -5,6 +5,8 @@ import com.in6k.aviaTicketDesk.dao.TicketDAO;
 import com.in6k.aviaTicketDesk.entity.Flight;
 import com.in6k.aviaTicketDesk.entity.Passenger;
 
+import java.util.List;
+
 /**
  * Created by employee on 7/29/16.
  */
@@ -26,6 +28,10 @@ public class AviaTicketDesk {
 
     public FlightDAO getFlightDAO() {
         return flightDAO;
+    }
+
+    public List getAllFlights() {
+        return flightDAO.getAll();
     }
 
     public void buyTickets(Flight flight, Passenger passenger, int numberOfTickets) {

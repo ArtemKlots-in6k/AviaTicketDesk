@@ -27,7 +27,7 @@ public class CityDAO {
         return sessionFactory;
     }
 
-    public City create(String title) throws Exception {
+    public City create(String title) {
         City city = new City(title);
         getSession().save(city);
         getSession().flush();

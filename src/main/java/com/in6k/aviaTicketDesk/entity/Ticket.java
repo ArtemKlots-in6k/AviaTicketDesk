@@ -64,7 +64,7 @@ public class Ticket {
 
         if (flight != null ? !flight.equals(ticket.flight) : ticket.flight != null) return false;
         return passenger != null ? passenger.equals(ticket.passenger) : ticket.passenger == null;
-
+//        return ticket.flight.equals(flight) && ticket.passenger.equals(passenger);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class Ticket {
     public String toString() {
         return "Ticket{" +
                 "id=" + id +
-                ", flight.id=" + flight.getId() +
+                ", flight=" + flight +
                 ", passenger=" + passenger +
                 '}';
     }
