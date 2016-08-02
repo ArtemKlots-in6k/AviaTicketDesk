@@ -4,48 +4,33 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <listener>
-        <listener-class>com.in6k.aviaTicketDesk.controller.ApplicationContext</listener-class>
-    </listener>
-
     <servlet>
-        <servlet-name>HelloWorld</servlet-name>
-        <servlet-class>com.in6k.aviaTicketDesk.controller.MainController</servlet-class>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>HelloWorld</servlet-name>
+        <servlet-name>mvc-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:config.xml</param-value>
+    </context-param>
 
-    <servlet>
-        <servlet-name>Flights</servlet-name>
-        <servlet-class>com.in6k.aviaTicketDesk.controller.FlightController</servlet-class>
-    </servlet>
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
 
-    <servlet-mapping>
-        <servlet-name>Flights</servlet-name>
-        <url-pattern>/flights</url-pattern>
-    </servlet-mapping>
 
-    <servlet>
-        <servlet-name>addData</servlet-name>
-        <servlet-class>com.in6k.aviaTicketDesk.controller.AddDataController</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>addData</servlet-name>
-        <url-pattern>/addData</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ticketDesk</servlet-name>
-        <servlet-class>com.in6k.aviaTicketDesk.controller.TicketDeskController</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>ticketDesk</servlet-name>
-        <url-pattern>/ticketDesk</url-pattern>
-    </servlet-mapping>
 </web-app>

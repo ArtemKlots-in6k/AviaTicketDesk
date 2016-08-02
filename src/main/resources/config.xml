@@ -41,6 +41,12 @@
         <property name="flightDAO" ref="flightDAO"/>
     </bean>
 
+    <bean id="fakeData" class="com.in6k.aviaTicketDesk.FakeData" init-method="addDataToDatabase">
+        <property name="cityDAO" ref="cityDAO"/>
+        <property name="airportDAO" ref="airportDAO"/>
+        <property name="flightDAO" ref="flightDAO"/>
+    </bean>
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
         <property name="url" value="jdbc:hsqldb:mem:shop"/>

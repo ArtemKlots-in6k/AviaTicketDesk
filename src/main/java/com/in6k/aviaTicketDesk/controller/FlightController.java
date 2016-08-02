@@ -1,48 +1,33 @@
 package com.in6k.aviaTicketDesk.controller;
 
-import com.in6k.aviaTicketDesk.dao.AirportDAO;
 import com.in6k.aviaTicketDesk.dao.CityDAO;
-import com.in6k.aviaTicketDesk.dao.FlightDAO;
+import com.in6k.aviaTicketDesk.service.AviaTicketDesk;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-
-import static java.util.Arrays.asList;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Created by employee on 8/1/16.
+ * Created by employee on 8/2/16.
  */
-public class FlightController extends ApplicationController {
-
-//    @Autowired
-//    private AviaTicketDesk aviaTicketDesk;
-
-    @Autowired
-    private CityDAO cityDAO;
+@Controller
+@RequestMapping
+public class FlightController {
 
     @Autowired
-    private AirportDAO airportDAO;
+    AviaTicketDesk aviaTicketDesk;
 
     @Autowired
-    private FlightDAO flightDAO;
+    CityDAO cityDAO;
 
+    @RequestMapping(value = "/flights", method = RequestMethod.GET)
+    public String printWelcome(ModelMap model) {
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        flightDAO = ApplicationContext.getBean(FlightDAO.class);
+        System.out.println(aviaTicketDesk.getAllFlights());
+        System.out.println(cityDAO.getAll());
 
-        request.setAttribute("flights", flightDAO.getAll());
-
-        request.getRequestDispatcher("jsp/flights.jsp").forward(request, response);
-    }
-
-    public void destroy() {
-
+        model.put("flights", aviaTicketDesk.getAllFlights());
+        return "flights";
     }
 }

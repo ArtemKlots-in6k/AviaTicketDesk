@@ -1,14 +1,10 @@
-package com.in6k.aviaTicketDesk.controller;
+package com.in6k.aviaTicketDesk;
 
 import com.in6k.aviaTicketDesk.dao.AirportDAO;
 import com.in6k.aviaTicketDesk.dao.CityDAO;
 import com.in6k.aviaTicketDesk.dao.FlightDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,31 +13,17 @@ import static java.util.Arrays.asList;
 /**
  * Created by employee on 8/2/16.
  */
-public class AddDataController extends ApplicationController {
-    @Autowired
+public class FakeData {
     private CityDAO cityDAO;
-
-    @Autowired
     private AirportDAO airportDAO;
-
-    @Autowired
     private FlightDAO flightDAO;
 
+    public FakeData() {
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        cityDAO = ApplicationContext.getBean(CityDAO.class);
-        airportDAO = ApplicationContext.getBean(AirportDAO.class);
-        flightDAO = ApplicationContext.getBean(FlightDAO.class);
-
-        fillDatabase();
-        response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-        response.setHeader("Location", "/");
-
-        request.getRequestDispatcher("jsp/flights.jsp").forward(request, response);
     }
 
-    private void fillDatabase() {
+    @PostConstruct
+    public void addDataToDatabase() {
         List<String> cities = asList("Tripoli", "Manacor", "Andorra", "Bremen", "Motala", "Elk", "Edinburgh");
         createCities(cities);
         createAirports();
@@ -66,7 +48,27 @@ public class AddDataController extends ApplicationController {
         flightDAO.create(airportDAO.getAirportById(1), airportDAO.getAirportById(2), 150, LocalDateTime.of(2016, 8, 3, 5, 0));
     }
 
-    public void destroy() {
+    public void setCityDAO(CityDAO cityDAO) {
+        this.cityDAO = cityDAO;
+    }
 
+    public CityDAO getCityDAO() {
+        return cityDAO;
+    }
+
+    public void setAirportDAO(AirportDAO airportDAO) {
+        this.airportDAO = airportDAO;
+    }
+
+    public AirportDAO getAirportDAO() {
+        return airportDAO;
+    }
+
+    public void setFlightDAO(FlightDAO flightDAO) {
+        this.flightDAO = flightDAO;
+    }
+
+    public FlightDAO getFlightDAO() {
+        return flightDAO;
     }
 }
