@@ -5,12 +5,12 @@
          version="3.1">
 
     <listener>
-        <listener-class>com.in6k.aviaTicketDesk.servlets.ApplicationContext</listener-class>
+        <listener-class>com.in6k.aviaTicketDesk.controller.ApplicationContext</listener-class>
     </listener>
 
     <servlet>
         <servlet-name>HelloWorld</servlet-name>
-        <servlet-class>com.in6k.aviaTicketDesk.servlets.MainController</servlet-class>
+        <servlet-class>com.in6k.aviaTicketDesk.controller.MainController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -20,12 +20,32 @@
 
 
     <servlet>
-        <servlet-name>AllCities</servlet-name>
-        <servlet-class>com.in6k.aviaTicketDesk.servlets.Cities</servlet-class>
+        <servlet-name>Flights</servlet-name>
+        <servlet-class>com.in6k.aviaTicketDesk.controller.FlightController</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>AllCities</servlet-name>
-        <url-pattern>/cities</url-pattern>
+        <servlet-name>Flights</servlet-name>
+        <url-pattern>/flights</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addData</servlet-name>
+        <servlet-class>com.in6k.aviaTicketDesk.controller.AddDataController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addData</servlet-name>
+        <url-pattern>/addData</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ticketDesk</servlet-name>
+        <servlet-class>com.in6k.aviaTicketDesk.controller.TicketDeskController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ticketDesk</servlet-name>
+        <url-pattern>/ticketDesk</url-pattern>
     </servlet-mapping>
 </web-app>

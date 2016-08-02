@@ -37,7 +37,7 @@ public class TicketDAO {
         return ticket;
     }
 
-    public List<Ticket> getAll() {
+    public List getAll() {
         return getSession().createCriteria(Ticket.class).list();
     }
 

@@ -33,7 +33,7 @@ public class FlightDAO {
     public Flight create(Airport departureAirport,
                          Airport destinationAirport,
                          int aircraftCapacity,
-                         LocalDateTime departureDateTime) throws Exception {
+                         LocalDateTime departureDateTime) {
 
         Flight flight = new Flight(departureAirport,
                 destinationAirport,

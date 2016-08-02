@@ -1,6 +1,5 @@
-package com.in6k.aviaTicketDesk.servlets;
+package com.in6k.aviaTicketDesk.controller;
 
-import com.in6k.aviaTicketDesk.dao.AirportDAO;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.ServletContextEvent;
@@ -16,7 +15,7 @@ public class ApplicationContext implements ServletContextListener {
         return applicationContext;
     }
 
-    public static void setupBeans(Object o) {
+    static void setupBeans(Object o) {
         applicationContext.getAutowireCapableBeanFactory().autowireBean(o);
     }
 
@@ -30,7 +29,7 @@ public class ApplicationContext implements ServletContextListener {
 
     }
 
-    public static <T> T getBean(Class<T> beanClass) {
+    static <T> T getBean(Class<T> beanClass) {
         return applicationContext.getBean(beanClass);
     }
 }

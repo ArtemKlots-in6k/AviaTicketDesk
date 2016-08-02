@@ -38,7 +38,6 @@ public class AviaTicketDesk {
         try {
             flightDAO.reserveSeats(flight, numberOfTickets);
 
-            System.out.println(flight);
             for (int i = 0; i < numberOfTickets; i++) {
                 ticketDAO.create(flight, passenger);
             }

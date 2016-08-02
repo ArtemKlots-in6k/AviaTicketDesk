@@ -41,7 +41,7 @@ public class AirportDAO {
         return getSession().createCriteria(Airport.class).list();
     }
 
-    public Airport getAirportById(int id) throws SQLException {
+    public Airport getAirportById(int id) {
         Criteria airportCriteria = getSession().createCriteria(Airport.class);
         airportCriteria.add(Restrictions.eq("id", id));
         return (Airport) airportCriteria.uniqueResult();

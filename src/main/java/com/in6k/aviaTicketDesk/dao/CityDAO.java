@@ -42,7 +42,7 @@ public class CityDAO {
         return getSession().createCriteria(City.class).list();
     }
 
-    public City getCityById(int id) throws SQLException {
+    public City getCityById(int id) {
         Criteria cityCriteria = getSession().createCriteria(City.class);
         cityCriteria.add(Restrictions.eq("id", id));
         return (City) cityCriteria.uniqueResult();

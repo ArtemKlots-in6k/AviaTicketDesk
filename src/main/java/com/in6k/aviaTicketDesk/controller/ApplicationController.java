@@ -1,4 +1,4 @@
-package com.in6k.aviaTicketDesk.servlets;
+package com.in6k.aviaTicketDesk.controller;
 
 import javax.servlet.http.HttpServlet;
 
