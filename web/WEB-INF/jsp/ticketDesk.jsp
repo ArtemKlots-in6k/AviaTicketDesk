@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>$Title$</title>
@@ -20,9 +21,8 @@
 <body>
 <h1>Flights </h1>
 <br>
-<form action="<c:url value="/ticketDesk"/>" method="POST">
-    <select name="flight">
-        <option value="${null}">Choose the flight</option>
+<form:form commandName="buyTicketForm" method="POST">
+    <form:select path="flight">
 
         <c:forEach items="${flights}" var="flight">
             <option value="${flight.id}">
@@ -32,18 +32,21 @@
                 <c:out value="${flight.departureDateTime}"/>
             </option>
         </c:forEach>
-    </select>
+    </form:select>
     <br>
     <br>
-    <input type="text" name="numberOfTickets" placeholder="Number of tickets">
+    <form:input type="text" required="required" pattern="[0-9]{0-40}" placeholder="Number of tickets"
+                path="numberOfTickets"/>
     <br>
     <br>
-    <input type="text" name="passenger" placeholder="Write your name">
+
+    <form:input type="text" placeholder="Write your name" path="passengerName"/>
+    <form:errors path="passengerName"/>
     <br>
     <br>
 
     <input type="submit" value="Submit"/>
-</form>
+</form:form>
 </table>
 </body>
 </html>

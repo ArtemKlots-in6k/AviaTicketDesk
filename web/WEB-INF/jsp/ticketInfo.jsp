@@ -33,7 +33,7 @@
     </tr>
 
     <tr>
-        <td><c:out value="${passenger}"/></td>
+        <td><c:out value="${passengerName}"/></td>
     </tr>
 </table>
 </body>
