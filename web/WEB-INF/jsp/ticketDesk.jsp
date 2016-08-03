@@ -35,7 +35,7 @@
     </form:select>
     <br>
     <br>
-    <form:input type="text" required="required" pattern="[0-9]{0-40}" placeholder="Number of tickets"
+    <form:input type="text" required="required" pattern="[0-9]" placeholder="Number of tickets"
                 path="numberOfTickets"/>
     <br>
     <br>

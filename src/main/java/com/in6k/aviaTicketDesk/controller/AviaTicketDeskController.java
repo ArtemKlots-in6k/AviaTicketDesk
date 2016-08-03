@@ -1,11 +1,11 @@
 package com.in6k.aviaTicketDesk.controller;
 
 import com.in6k.aviaTicketDesk.dao.CityDAO;
-import com.in6k.aviaTicketDesk.dao.FlightDAO;
 import com.in6k.aviaTicketDesk.dao.PassengerDAO;
 import com.in6k.aviaTicketDesk.dao.TicketDAO;
 import com.in6k.aviaTicketDesk.form.BuyTicketForm;
 import com.in6k.aviaTicketDesk.service.AviaTicketDesk;
+import com.in6k.aviaTicketDesk.service.FlightService;
 import com.in6k.aviaTicketDesk.validator.BuyTicketValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ public class AviaTicketDeskController {
     CityDAO cityDAO;
 
     @Autowired
-    FlightDAO flightDAO;
+    FlightService flightService;
 
     @Autowired
     TicketDAO ticketDAO;
@@ -72,9 +72,9 @@ public class AviaTicketDeskController {
         if (result.hasErrors()) {
             return "ticketDesk";
         }
-//        aviaTicketDesk.buyTickets(flightDAO.getFlightById(flightId), passengerDAO.getById(passengerName), numberOfTickets);
+//        aviaTicketDesk.buyTickets(flightService.getFlightById(flightId), passengerDAO.getById(passengerName), numberOfTickets);
 
-        model.put("flight", flightDAO.getFlightById(flightId));
+        model.put("flight", flightService.getById(flightId));
         model.put("numberOfTickets", numberOfTickets);
         model.put("passengerName", passengerDAO.getById(1).getName());
         return "ticketInfo";
