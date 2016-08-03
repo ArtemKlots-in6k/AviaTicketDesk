@@ -1,9 +1,7 @@
-import com.in6k.aviaTicketDesk.entity.Flight;
 import com.in6k.aviaTicketDesk.entity.Ticket;
 import com.in6k.aviaTicketDesk.entity.Passenger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -23,10 +21,10 @@ public class TicketDAOTest extends DatabaseInitializer {
     public void setUp() throws Exception {
         prepareDatabase();
         allTickets = asList(
-                new Ticket(flightDAO.getFlightById(0), passengerDAO.getUserById(0)),
-                new Ticket(flightDAO.getFlightById(2), passengerDAO.getUserById(3)),
-                new Ticket(flightDAO.getFlightById(3), passengerDAO.getUserById(1)),
-                new Ticket(flightDAO.getFlightById(3), passengerDAO.getUserById(2))
+                new Ticket(flightDAO.getFlightById(0), passengerDAO.getById(0)),
+                new Ticket(flightDAO.getFlightById(2), passengerDAO.getById(3)),
+                new Ticket(flightDAO.getFlightById(3), passengerDAO.getById(1)),
+                new Ticket(flightDAO.getFlightById(3), passengerDAO.getById(2))
         );
     }
 
@@ -37,7 +35,7 @@ public class TicketDAOTest extends DatabaseInitializer {
 
     @Test
     public void create() throws Exception {
-        assertThat(ticketDAO.create(flightDAO.getFlightById(0), passengerDAO.getUserById(0)),
+        assertThat(ticketDAO.create(flightDAO.getFlightById(0), passengerDAO.getById(0)),
                 is(new Ticket(flightDAO.getFlightById(0), new Passenger("John"))));
     }
 
@@ -50,9 +48,9 @@ public class TicketDAOTest extends DatabaseInitializer {
     public void createAndGetAll() throws Exception {
         List<Ticket> expected = new ArrayList<>();
         expected.addAll(allTickets);
-        expected.add(new Ticket(flightDAO.getFlightById(0), passengerDAO.getUserById(1)));
+        expected.add(new Ticket(flightDAO.getFlightById(0), passengerDAO.getById(1)));
 
-        ticketDAO.create(flightDAO.getFlightById(0), passengerDAO.getUserById(1));
+        ticketDAO.create(flightDAO.getFlightById(0), passengerDAO.getById(1));
 
         assertThat(ticketDAO.getAll(), is(expected));
     }
@@ -60,14 +58,14 @@ public class TicketDAOTest extends DatabaseInitializer {
     @Test
     public void getById() throws Exception {
         assertThat(ticketDAO.getTicketById(0),
-                is(new Ticket(flightDAO.getFlightById(0), passengerDAO.getUserById(0))));
+                is(new Ticket(flightDAO.getFlightById(0), passengerDAO.getById(0))));
     }
 
     @Test
     public void createAndGetById() throws Exception {
-        ticketDAO.create(flightDAO.getFlightById(2), passengerDAO.getUserById(1));
+        ticketDAO.create(flightDAO.getFlightById(2), passengerDAO.getById(1));
 
         assertThat(ticketDAO.getTicketById(4),
-                is(new Ticket(flightDAO.getFlightById(2), passengerDAO.getUserById(1))));
+                is(new Ticket(flightDAO.getFlightById(2), passengerDAO.getById(1))));
     }
 }

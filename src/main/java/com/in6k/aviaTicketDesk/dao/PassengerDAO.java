@@ -40,13 +40,13 @@ public class PassengerDAO {
         return getSession().createCriteria(Passenger.class).list();
     }
 
-    public Passenger getUserById(int id) {
+    public Passenger getById(int id) {
         Criteria passengerCriteria = getSession().createCriteria(Passenger.class);
         passengerCriteria.add(Restrictions.eq("id", id));
         return (Passenger) passengerCriteria.uniqueResult();
     }
 
-    public Passenger getPassengerByName(String name) {
+    public Passenger getByName(String name) {
         Criteria passengerCriteria = getSession().createCriteria(Passenger.class);
         passengerCriteria.add(Restrictions.eq("name", name));
         return (Passenger) passengerCriteria.uniqueResult();

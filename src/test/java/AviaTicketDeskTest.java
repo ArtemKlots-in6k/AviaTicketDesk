@@ -22,10 +22,10 @@ public class AviaTicketDeskTest extends DatabaseInitializer {
     public void setUp() throws Exception {
         prepareDatabase();
         allTickets = asList(
-                new Ticket(flightDAO.getFlightById(0), passengerDAO.getUserById(0)),
-                new Ticket(flightDAO.getFlightById(2), passengerDAO.getUserById(3)),
-                new Ticket(flightDAO.getFlightById(3), passengerDAO.getUserById(1)),
-                new Ticket(flightDAO.getFlightById(3), passengerDAO.getUserById(2))
+                new Ticket(flightDAO.getFlightById(0), passengerDAO.getById(0)),
+                new Ticket(flightDAO.getFlightById(2), passengerDAO.getById(3)),
+                new Ticket(flightDAO.getFlightById(3), passengerDAO.getById(1)),
+                new Ticket(flightDAO.getFlightById(3), passengerDAO.getById(2))
         );
     }
 
@@ -39,17 +39,17 @@ public class AviaTicketDeskTest extends DatabaseInitializer {
         int flightId = 0;
         int userId = 1;
         List<Ticket> addedTickets = asList(
-                new Ticket(flightDAO.getFlightById(flightId), passengerDAO.getUserById(userId)),
-                new Ticket(flightDAO.getFlightById(flightId), passengerDAO.getUserById(userId)),
-                new Ticket(flightDAO.getFlightById(flightId), passengerDAO.getUserById(userId)),
-                new Ticket(flightDAO.getFlightById(flightId), passengerDAO.getUserById(userId)),
-                new Ticket(flightDAO.getFlightById(flightId), passengerDAO.getUserById(userId))
+                new Ticket(flightDAO.getFlightById(flightId), passengerDAO.getById(userId)),
+                new Ticket(flightDAO.getFlightById(flightId), passengerDAO.getById(userId)),
+                new Ticket(flightDAO.getFlightById(flightId), passengerDAO.getById(userId)),
+                new Ticket(flightDAO.getFlightById(flightId), passengerDAO.getById(userId)),
+                new Ticket(flightDAO.getFlightById(flightId), passengerDAO.getById(userId))
         );
         List<Ticket> allNewTickets = new ArrayList<>();
         allNewTickets.addAll(allTickets);
         allNewTickets.addAll(addedTickets);
 
-        aviaTicketDesk.buyTickets(flightDAO.getFlightById(flightId), passengerDAO.getUserById(userId), 5);
+        aviaTicketDesk.buyTickets(flightDAO.getFlightById(flightId), passengerDAO.getById(userId), 5);
 
         assertThat(ticketDAO.getAll(), is(allNewTickets));
     }

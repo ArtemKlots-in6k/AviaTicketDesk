@@ -58,11 +58,11 @@ public class AviaTicketDeskController {
             @RequestParam("passenger") String passenger
     ) {
 
-//        aviaTicketDesk.buyTickets(flightDAO.getFlightById(flightId), passengerDAO.getUserById(passenger), numberOfTickets);
+//        aviaTicketDesk.buyTickets(flightDAO.getFlightById(flightId), passengerDAO.getById(passenger), numberOfTickets);
 
         model.put("flight", flightDAO.getFlightById(flightId));
         model.put("numberOfTickets", numberOfTickets);
-        model.put("passenger", passengerDAO.getUserById(1).getName());
+        model.put("passenger", passengerDAO.getById(1).getName());
         return "ticketInfo";
     }
 

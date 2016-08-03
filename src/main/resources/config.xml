@@ -16,6 +16,7 @@
         <property name="packagesToScan" value="com.in6k.aviaTicketDesk.entity"/>
     </bean>
 
+    <!--DAOs-->
     <bean id="cityDAO" class="com.in6k.aviaTicketDesk.dao.CityDAO">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
@@ -36,9 +37,14 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <!--Services-->
     <bean id="aviaTicketDesk" class="com.in6k.aviaTicketDesk.service.AviaTicketDesk">
         <property name="ticketDAO" ref="ticketDAO"/>
         <property name="flightDAO" ref="flightDAO"/>
+    </bean>
+
+    <bean id="passengerService" class="com.in6k.aviaTicketDesk.service.PassengerService">
+        <property name="passengerDAO" ref="passengerDAO"/>
     </bean>
 
     <bean id="fakeData" class="com.in6k.aviaTicketDesk.FakeData" init-method="addDataToDatabase">
