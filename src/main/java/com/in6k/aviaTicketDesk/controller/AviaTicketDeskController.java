@@ -62,10 +62,8 @@ public class AviaTicketDeskController {
     public String ticketDeskPOST(
             ModelMap model,
             BuyTicketForm buyTicketForm,
-            BindingResult result,
-            @RequestParam("flight") int flightId,
-            @RequestParam("numberOfTickets") int numberOfTickets,
-            @RequestParam("passengerName") String passengerName
+            BindingResult result
+
     ) {
 
         buyTicketValidator.validate(buyTicketForm, result);
@@ -73,11 +71,14 @@ public class AviaTicketDeskController {
             model.put("flights", aviaTicketDesk.getAllFlights());
             return "ticketDesk";
         }
-        aviaTicketDesk.buyTickets(flightService.getById(flightId), passengerDAO.getByName(passengerName), numberOfTickets);
+        aviaTicketDesk.buyTickets(
+                flightService.getById(buyTicketForm.getFlight()),
+                passengerDAO.getByName(buyTicketForm.getPassengerName()),
+                buyTicketForm.getNumberOfTickets());
 
-        model.put("flight", flightService.getById(flightId));
-        model.put("numberOfTickets", numberOfTickets);
-        model.put("passengerName", passengerDAO.getByName(passengerName).getName());
+        model.put("flight", flightService.getById(buyTicketForm.getFlight()));
+        model.put("numberOfTickets", buyTicketForm.getNumberOfTickets());
+        model.put("passengerName", passengerDAO.getByName(buyTicketForm.getPassengerName()).getName());
         return "ticketInfo";
     }
 

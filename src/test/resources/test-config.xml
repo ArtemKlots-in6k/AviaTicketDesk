@@ -48,6 +48,10 @@
         <property name="passengerDAO" ref="passengerDAO"/>
     </bean>
 
+    <bean id="airportService" class="com.in6k.aviaTicketDesk.service.AirportService">
+        <property name="airportDAO" ref="airportDAO"/>
+    </bean>
+
     <bean id="flightService" class="com.in6k.aviaTicketDesk.service.FlightService">
         <property name="flightDAO" ref="flightDAO"/>
     </bean>

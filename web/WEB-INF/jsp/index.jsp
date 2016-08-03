@@ -16,6 +16,8 @@
 
 <a href="<c:url value="/flights"/>">Flights</a><br>
 <a href="<c:url value="/ticketDesk"/>">Ticket Desk</a><br>
+<br>
+<a href="<c:url value="/createFlight"/>">Ticket Desk</a><br>
 
 </body>
 </html>
