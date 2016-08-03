@@ -26,7 +26,7 @@ public class PassengerDAO {
         return sessionFactory;
     }
 
-    public Passenger create(String name) throws Exception {
+    public Passenger create(String name) {
         Passenger passenger = new Passenger(name);
         getSession().save(passenger);
         getSession().flush();
@@ -41,7 +41,7 @@ public class PassengerDAO {
         return getSession().createCriteria(Passenger.class).list();
     }
 
-    public Passenger getUserById(int id) throws SQLException {
+    public Passenger getUserById(int id) {
         Criteria passengerCriteria = getSession().createCriteria(Passenger.class);
         passengerCriteria.add(Restrictions.eq("id", id));
         return (Passenger) passengerCriteria.uniqueResult();

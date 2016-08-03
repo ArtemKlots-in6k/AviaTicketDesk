@@ -53,7 +53,7 @@ public class FlightDAO {
         return getSession().createCriteria(Flight.class).list();
     }
 
-    public Flight getFlightById(int id) throws SQLException {
+    public Flight getFlightById(int id) {
         Criteria flightCriteria = getSession().createCriteria(Flight.class);
         flightCriteria.add(Restrictions.eq("id", id));
         return (Flight) flightCriteria.uniqueResult();

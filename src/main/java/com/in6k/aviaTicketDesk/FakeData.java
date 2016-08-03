@@ -3,8 +3,8 @@ package com.in6k.aviaTicketDesk;
 import com.in6k.aviaTicketDesk.dao.AirportDAO;
 import com.in6k.aviaTicketDesk.dao.CityDAO;
 import com.in6k.aviaTicketDesk.dao.FlightDAO;
+import com.in6k.aviaTicketDesk.dao.PassengerDAO;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,17 +17,25 @@ public class FakeData {
     private CityDAO cityDAO;
     private AirportDAO airportDAO;
     private FlightDAO flightDAO;
+    private PassengerDAO passengerDAO;
 
     public FakeData() {
 
     }
 
-    @PostConstruct
     public void addDataToDatabase() {
         List<String> cities = asList("Tripoli", "Manacor", "Andorra", "Bremen", "Motala", "Elk", "Edinburgh");
         createCities(cities);
         createAirports();
         createFlights();
+        createUsers();
+    }
+
+    private void createUsers() {
+        List<String> passengers = asList("John", "Bob", "Andre", "Jenifer", "Marta", "Lola", "Fill");
+        for (String passenger : passengers) {
+            passengerDAO.create(passenger);
+        }
     }
 
     private void createCities(List<String> cities) {
@@ -70,5 +78,13 @@ public class FakeData {
 
     public FlightDAO getFlightDAO() {
         return flightDAO;
+    }
+
+    public void setPassengerDAO(PassengerDAO passengerDAO) {
+        this.passengerDAO = passengerDAO;
+    }
+
+    public PassengerDAO getPassengerDAO() {
+        return passengerDAO;
     }
 }

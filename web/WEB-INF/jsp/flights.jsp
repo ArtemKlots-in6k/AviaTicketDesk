@@ -19,7 +19,6 @@
 </style>
 <body>
 <h1>Flights </h1>
-<a href="<c:url value="/addData"/>">Fill the database</a>
 <br>
 <table>
     <tr>

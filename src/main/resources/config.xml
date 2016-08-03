@@ -45,6 +45,7 @@
         <property name="cityDAO" ref="cityDAO"/>
         <property name="airportDAO" ref="airportDAO"/>
         <property name="flightDAO" ref="flightDAO"/>
+        <property name="passengerDAO" ref="passengerDAO"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
