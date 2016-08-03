@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="connection.driver_class">org.hsqldb.jdbcDriver</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+        <property name="packagesToScan" value="com.in6k.aviaTicketDesk.entity"/>
+    </bean>
+
+    <!--DAOs-->
+    <bean id="cityDAO" class="com.in6k.aviaTicketDesk.dao.CityDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="airportDAO" class="com.in6k.aviaTicketDesk.dao.AirportDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="flightDAO" class="com.in6k.aviaTicketDesk.dao.FlightDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="passengerDAO" class="com.in6k.aviaTicketDesk.dao.PassengerDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="ticketDAO" class="com.in6k.aviaTicketDesk.dao.TicketDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!--Services-->
+    <bean id="aviaTicketDesk" class="com.in6k.aviaTicketDesk.service.AviaTicketDesk">
+        <property name="ticketDAO" ref="ticketDAO"/>
+        <property name="flightDAO" ref="flightDAO"/>
+    </bean>
+
+    <bean id="passengerService" class="com.in6k.aviaTicketDesk.service.PassengerService">
+        <property name="passengerDAO" ref="passengerDAO"/>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+        <property name="url" value="jdbc:hsqldb:mem:shop"/>
+        <property name="username" value="user"/>
+        <property name="password" value="852"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <context:component-scan base-package="com.in6k.aviaTicketDesk"/>
+
+</beans>

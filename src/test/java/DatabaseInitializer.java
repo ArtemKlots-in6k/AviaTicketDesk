@@ -79,7 +79,7 @@ public class DatabaseInitializer {
     }
 
     private void setUpBeans() {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[]{"config.xml"});
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[]{"classpath:test-config.xml"});
         cityDAO = applicationContext.getBean(CityDAO.class);
         airportDAO = applicationContext.getBean(AirportDAO.class);
         flightDAO = applicationContext.getBean(FlightDAO.class);
