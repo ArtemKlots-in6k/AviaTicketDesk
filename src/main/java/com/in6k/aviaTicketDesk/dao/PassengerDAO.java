@@ -7,7 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -44,6 +43,12 @@ public class PassengerDAO {
     public Passenger getUserById(int id) {
         Criteria passengerCriteria = getSession().createCriteria(Passenger.class);
         passengerCriteria.add(Restrictions.eq("id", id));
+        return (Passenger) passengerCriteria.uniqueResult();
+    }
+
+    public Passenger getPassengerByName(String name) {
+        Criteria passengerCriteria = getSession().createCriteria(Passenger.class);
+        passengerCriteria.add(Restrictions.eq("name", name));
         return (Passenger) passengerCriteria.uniqueResult();
     }
 }

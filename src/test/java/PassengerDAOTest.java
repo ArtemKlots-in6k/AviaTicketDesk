@@ -65,4 +65,13 @@ public class PassengerDAOTest extends DatabaseInitializer {
         assertThat(passengerDAO.getUserById(7), is(new Passenger("Rose")));
     }
 
+    @Test
+    public void getPassengerByName() throws Exception {
+        assertThat(passengerDAO.getPassengerByName("John"), is(new Passenger("John")));
+    }
+
+    @Test
+    public void getPassengerByAnotherName() throws Exception {
+        assertThat(passengerDAO.getPassengerByName("Bob"), is(new Passenger("Bob")));
+    }
 }
