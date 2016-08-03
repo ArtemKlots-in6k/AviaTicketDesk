@@ -70,13 +70,14 @@ public class AviaTicketDeskController {
 
         buyTicketValidator.validate(buyTicketForm, result);
         if (result.hasErrors()) {
+            model.put("flights", aviaTicketDesk.getAllFlights());
             return "ticketDesk";
         }
-//        aviaTicketDesk.buyTickets(flightService.getFlightById(flightId), passengerDAO.getById(passengerName), numberOfTickets);
+        aviaTicketDesk.buyTickets(flightService.getById(flightId), passengerDAO.getByName(passengerName), numberOfTickets);
 
         model.put("flight", flightService.getById(flightId));
         model.put("numberOfTickets", numberOfTickets);
-        model.put("passengerName", passengerDAO.getById(1).getName());
+        model.put("passengerName", passengerDAO.getByName(passengerName).getName());
         return "ticketInfo";
     }
 

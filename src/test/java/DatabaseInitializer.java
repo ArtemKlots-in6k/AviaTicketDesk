@@ -1,5 +1,6 @@
 import com.in6k.aviaTicketDesk.dao.*;
 import com.in6k.aviaTicketDesk.service.AviaTicketDesk;
+import com.in6k.aviaTicketDesk.service.PassengerService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.DriverManager;
@@ -17,6 +18,7 @@ public class DatabaseInitializer {
     PassengerDAO passengerDAO;
     TicketDAO ticketDAO;
     AviaTicketDesk aviaTicketDesk;
+    PassengerService passengerService;
 
 
     void prepareDatabase() throws Exception {
@@ -86,6 +88,7 @@ public class DatabaseInitializer {
         passengerDAO = applicationContext.getBean(PassengerDAO.class);
         ticketDAO = applicationContext.getBean(TicketDAO.class);
         aviaTicketDesk = applicationContext.getBean(AviaTicketDesk.class);
+        passengerService = applicationContext.getBean(PassengerService.class);
     }
 
     private void prepareCities() throws SQLException {

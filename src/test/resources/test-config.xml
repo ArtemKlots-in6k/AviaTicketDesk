@@ -48,6 +48,10 @@
         <property name="passengerDAO" ref="passengerDAO"/>
     </bean>
 
+    <bean id="flightService" class="com.in6k.aviaTicketDesk.service.FlightService">
+        <property name="flightDAO" ref="flightDAO"/>
+    </bean>
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
         <property name="url" value="jdbc:hsqldb:mem:shop"/>
