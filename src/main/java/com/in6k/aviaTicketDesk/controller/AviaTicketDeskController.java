@@ -63,7 +63,6 @@ public class AviaTicketDeskController {
             ModelMap model,
             BuyTicketForm buyTicketForm,
             BindingResult result
-
     ) {
 
         buyTicketValidator.validate(buyTicketForm, result);

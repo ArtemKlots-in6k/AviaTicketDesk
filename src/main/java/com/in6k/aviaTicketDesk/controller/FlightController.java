@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 /**
  * Created by employee on 8/3/16.
  */
+// TODO: 8/4/16 Подключить валидатор
 @Controller
 @RequestMapping
 public class FlightController {

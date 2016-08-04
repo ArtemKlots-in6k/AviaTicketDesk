@@ -19,5 +19,7 @@
 <br>
 <a href="<c:url value="/createFlight"/>">Create Flight</a><br>
 
+<a href="<c:url value="/register"/>">Register</a><br>
+
 </body>
 </html>

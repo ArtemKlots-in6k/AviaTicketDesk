@@ -34,11 +34,13 @@ public class PassengerService {
 
     public boolean isThisPassengerExist(String name) {
         try {
-            if (passengerDAO.getByName(name) == null)
-                return false;
-            return true;
+            return passengerDAO.getByName(name) != null;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public Passenger create(String name) {
+        return passengerDAO.create(name);
     }
 }
