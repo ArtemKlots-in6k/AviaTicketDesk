@@ -12,7 +12,7 @@
     <title>Ticket Info</title>
 </head>
 <body>
-
+<a href="<c:url value="/"/>">Home</a><br>
 <table>
     <tr>
         <td><c:out value="${flight.id}"/></td>

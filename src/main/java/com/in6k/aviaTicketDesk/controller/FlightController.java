@@ -46,16 +46,16 @@ public class FlightController {
             ModelMap model,
             @RequestParam("departureAirport") int departureAirportId,
             @RequestParam("arrivalAirport") int arrivalAirportId,
-            @RequestParam("aircraftCapacity") int aircraftCapacity
-
+            @RequestParam("aircraftCapacity") int aircraftCapacity,
+            @RequestParam("departureDateTime") String departureDateTime
     ) {
 
         Flight createdFlight = flightService.create(
                 airportService.getById(departureAirportId),
                 airportService.getById(arrivalAirportId),
                 aircraftCapacity,
-                LocalDateTime.now());
-        model.put("result", "Done! :" + createdFlight);
+                LocalDateTime.parse(departureDateTime));
+        model.put("result", createdFlight);
         model.put("departureAirports", airportService.getAll());
         model.put("arrivalAirports", airportService.getAll());
         return "createFlight";

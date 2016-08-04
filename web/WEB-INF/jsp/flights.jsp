@@ -20,6 +20,7 @@
 <body>
 <h1>Flights </h1>
 <br>
+<a href="<c:url value="/"/>">Home</a><br>
 <table>
     <tr>
         <td>Flight id</td>
